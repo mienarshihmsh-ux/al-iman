@@ -1,3 +1,4 @@
+
 "use client"
 
 import React, { useState } from 'react';
@@ -11,6 +12,7 @@ import {
   DialogDescription,
 } from "@/components/ui/dialog";
 import { VisuallyHidden } from "@radix-ui/react-visually-hidden";
+import { X } from 'lucide-react';
 
 interface GalleryProps {
   data: GalleryData;
@@ -60,6 +62,15 @@ export function Gallery({ data }: GalleryProps) {
           
           {selectedItem && (
             <div className="relative w-full h-[70vh] md:h-[85vh] flex items-center justify-center group">
+              {/* Close Button */}
+              <button 
+                onClick={() => setSelectedItem(null)}
+                className="absolute top-4 right-4 z-[60] bg-black/50 hover:bg-black/80 text-white w-12 h-12 rounded-full flex items-center justify-center transition-all shadow-2xl border border-white/20"
+                aria-label="Tutup"
+              >
+                <X className="w-8 h-8" />
+              </button>
+
               <div className="relative w-full h-full">
                 <Image
                   src={selectedItem.image}
