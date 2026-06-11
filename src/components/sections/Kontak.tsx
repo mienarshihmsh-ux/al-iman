@@ -3,6 +3,7 @@
 import React from 'react';
 import { MapPin, Mail, Phone, Clock, Map as MapIcon } from 'lucide-react';
 import { KontakData } from '@/lib/types';
+import { cn } from '@/lib/utils';
 
 interface KontakProps {
   data: KontakData;
