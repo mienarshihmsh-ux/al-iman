@@ -1,18 +1,15 @@
 "use client"
 
 import React from 'react';
-import { Loader2 } from 'lucide-react';
-import { MosqueIcon } from '@/components/icons/MosqueIcon';
 
 export function LoadingScreen({ text }: { text: string }) {
   return (
-    <div className="fixed inset-0 z-[9999] hero-gradient flex flex-col items-center justify-center text-white">
-      <div className="relative mb-8">
-        <MosqueIcon className="w-20 h-20 text-[#f9e79f] animate-pulse" />
-        <Loader2 className="w-8 h-8 absolute -bottom-4 -right-4 animate-spin" />
+    <div className="fixed inset-0 z-[9999] hero-gradient flex flex-col items-center justify-center text-white transition-opacity duration-500">
+      <div className="text-center">
+        <i className="fas fa-spinner text-6xl text-[#f9e79f] animate-spin mb-6"></i>
+        <h2 className="text-xl font-headline font-semibold mb-2">{text}</h2>
+        <p className="text-white/60 text-sm animate-pulse">Menghubungkan ke sistem...</p>
       </div>
-      <h2 className="text-xl font-headline font-semibold mb-2">{text}</h2>
-      <p className="text-white/60 text-sm animate-pulse">Menghubungkan ke sistem...</p>
     </div>
   );
 }

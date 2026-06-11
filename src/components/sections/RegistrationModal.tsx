@@ -12,8 +12,8 @@ import {
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Button } from "@/components/ui/button";
-import { User, IdCard, Camera, GraduationCap, Users, Send, Info, X } from 'lucide-react';
 import { useToast } from "@/hooks/use-toast";
+import { cn } from '@/lib/utils';
 
 interface RegistrationModalProps {
   isOpen: boolean;
@@ -73,20 +73,20 @@ export function RegistrationModal({ isOpen, onClose, appsScriptUrl }: Registrati
     // Basic validations
     if (!formData.nama || !formData.nisn || !formData.nik || !files.foto || !files.ijazah || !files.kk) {
       toast({
-        title: "Gagal",
+        title: "Form Tidak Lengkap",
         description: "Semua kolom wajib diisi!",
         variant: "destructive"
       });
       return;
     }
 
-    if (formData.nisn.length !== 10) {
-      toast({ title: "Gagal", description: "NISN harus 10 digit!", variant: "destructive" });
+    if (!/^\d{10}$/.test(formData.nisn)) {
+      toast({ title: "NISN Tidak Valid", description: "NISN harus berupa 10 digit angka!", variant: "destructive" });
       return;
     }
 
-    if (formData.nik.length !== 16) {
-      toast({ title: "Gagal", description: "NIK harus 16 digit!", variant: "destructive" });
+    if (!/^\d{16}$/.test(formData.nik)) {
+      toast({ title: "NIK Tidak Valid", description: "NIK harus berupa 16 digit angka!", variant: "destructive" });
       return;
     }
 
@@ -115,8 +115,8 @@ export function RegistrationModal({ isOpen, onClose, appsScriptUrl }: Registrati
 
       if (result.result === 'success') {
         toast({
-          title: "Berhasil",
-          description: `Pendaftaran ${formData.nama} berhasil dikirim!`,
+          title: "Pendaftaran Berhasil!",
+          description: `Data ${formData.nama} berhasil disimpan. Terima kasih telah mendaftar di TPA AL IMAN.`,
         });
         onClose();
         // Reset form
@@ -127,7 +127,7 @@ export function RegistrationModal({ isOpen, onClose, appsScriptUrl }: Registrati
       }
     } catch (error: any) {
       toast({
-        title: "Kesalahan",
+        title: "Pendaftaran Gagal",
         description: error.message || "Terjadi kesalahan saat mengirim data.",
         variant: "destructive"
       });
@@ -138,92 +138,119 @@ export function RegistrationModal({ isOpen, onClose, appsScriptUrl }: Registrati
 
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
-      <DialogContent className="sm:max-w-[600px] max-h-[90vh] overflow-y-auto rounded-3xl">
-        <DialogHeader>
-          <DialogTitle className="text-2xl font-headline font-bold text-primary flex items-center gap-2">
-            <Send className="w-6 h-6" /> Pendaftaran Santri Baru
+      <DialogContent className="sm:max-w-[650px] max-h-[95vh] overflow-y-auto rounded-3xl p-8 border-none shadow-2xl">
+        <DialogHeader className="mb-6">
+          <DialogTitle className="text-2xl font-headline font-bold text-primary flex items-center gap-3">
+            <i className="fas fa-paper-plane"></i> Form Pendaftaran Santri Baru
           </DialogTitle>
-          <DialogDescription>
+          <DialogDescription className="text-base">
             Silakan isi formulir di bawah ini dengan lengkap dan benar.
           </DialogDescription>
         </DialogHeader>
 
-        <form onSubmit={handleSubmit} className="space-y-6 py-4">
+        <form onSubmit={handleSubmit} className="space-y-6">
           <div className="space-y-2">
-            <Label htmlFor="nama" className="flex items-center gap-2">
-              <User className="w-4 h-4 text-primary" /> Nama Lengkap <span className="text-red-500">*</span>
+            <Label htmlFor="nama" className="flex items-center gap-2 text-foreground font-semibold">
+              <i className="fas fa-user text-primary"></i> Nama Lengkap <span className="text-red-500">*</span>
             </Label>
             <Input 
               id="nama" 
               placeholder="Contoh: Ibrahim Hassan" 
+              className="h-12 border-2 focus:border-primary transition-all rounded-xl"
               value={formData.nama}
               onChange={handleInputChange}
               required 
             />
           </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
             <div className="space-y-2">
-              <Label htmlFor="nisn" className="flex items-center gap-2">
-                <IdCard className="w-4 h-4 text-primary" /> NISN <span className="text-red-500">*</span>
+              <Label htmlFor="nisn" className="flex items-center gap-2 text-foreground font-semibold">
+                <i className="fas fa-id-card text-primary"></i> NISN <span className="text-red-500">*</span>
               </Label>
               <Input 
                 id="nisn" 
                 placeholder="10 digit angka" 
+                className="h-12 border-2 focus:border-primary transition-all rounded-xl"
                 value={formData.nisn}
                 onChange={handleInputChange}
                 required 
               />
-              <p className="text-[10px] text-muted-foreground flex items-center gap-1">
-                <Info className="w-3 h-3" /> Nomor Induk Siswa Nasional
+              <p className="text-[10px] text-muted-foreground flex items-center gap-1 mt-1">
+                <i className="fas fa-info-circle"></i> Nomor Induk Siswa Nasional (10 digit angka)
               </p>
             </div>
             <div className="space-y-2">
-              <Label htmlFor="nik" className="flex items-center gap-2">
-                <IdCard className="w-4 h-4 text-primary" /> NIK <span className="text-red-500">*</span>
+              <Label htmlFor="nik" className="flex items-center gap-2 text-foreground font-semibold">
+                <i className="fas fa-id-card text-primary"></i> NIK <span className="text-red-500">*</span>
               </Label>
               <Input 
                 id="nik" 
                 placeholder="16 digit angka" 
+                className="h-12 border-2 focus:border-primary transition-all rounded-xl"
                 value={formData.nik}
                 onChange={handleInputChange}
                 required 
               />
-              <p className="text-[10px] text-muted-foreground flex items-center gap-1">
-                <Info className="w-3 h-3" /> Nomor Induk Kependudukan
+              <p className="text-[10px] text-muted-foreground flex items-center gap-1 mt-1">
+                <i className="fas fa-info-circle"></i> Nomor Induk Kependudukan (16 digit angka)
               </p>
             </div>
           </div>
 
-          <div className="space-y-4">
+          <div className="space-y-5 bg-muted/30 p-6 rounded-2xl border border-dashed border-primary/20">
             <div className="space-y-2">
-              <Label htmlFor="foto" className="flex items-center gap-2">
-                <Camera className="w-4 h-4 text-primary" /> Foto Santri <span className="text-red-500">*</span>
+              <Label htmlFor="foto" className="flex items-center gap-2 text-foreground font-semibold">
+                <i className="fas fa-camera text-primary"></i> Foto Santri <span className="text-red-500">*</span>
               </Label>
-              <Input id="foto" type="file" accept=".jpg,.jpeg,.png" onChange={handleFileChange} required />
-              <p className="text-[10px] text-muted-foreground">Format: JPG, PNG | Maks 2MB</p>
+              <Input id="foto" type="file" accept=".jpg,.jpeg,.png" onChange={handleFileChange} className="bg-white border-2 rounded-xl cursor-pointer" required />
+              <div className="flex justify-between items-center text-[10px] text-muted-foreground">
+                <span>Format: JPG, PNG</span>
+                <span>Maks 2MB</span>
+              </div>
             </div>
 
             <div className="space-y-2">
-              <Label htmlFor="ijazah" className="flex items-center gap-2">
-                <GraduationCap className="w-4 h-4 text-primary" /> Ijazah / Surat Keterangan <span className="text-red-500">*</span>
+              <Label htmlFor="ijazah" className="flex items-center gap-2 text-foreground font-semibold">
+                <i className="fas fa-graduation-cap text-primary"></i> Ijazah / Surat Keterangan <span className="text-red-500">*</span>
               </Label>
-              <Input id="ijazah" type="file" accept=".pdf" onChange={handleFileChange} required />
-              <p className="text-[10px] text-muted-foreground">Format: PDF | Maks 2MB</p>
+              <Input id="ijazah" type="file" accept=".pdf" onChange={handleFileChange} className="bg-white border-2 rounded-xl cursor-pointer" required />
+              <div className="flex justify-between items-center text-[10px] text-muted-foreground">
+                <span>Format: PDF</span>
+                <span>Maks 2MB</span>
+              </div>
             </div>
 
             <div className="space-y-2">
-              <Label htmlFor="kk" className="flex items-center gap-2">
-                <Users className="w-4 h-4 text-primary" /> Kartu Keluarga <span className="text-red-500">*</span>
+              <Label htmlFor="kk" className="flex items-center gap-2 text-foreground font-semibold">
+                <i className="fas fa-users text-primary"></i> Kartu Keluarga <span className="text-red-500">*</span>
               </Label>
-              <Input id="kk" type="file" accept=".pdf" onChange={handleFileChange} required />
-              <p className="text-[10px] text-muted-foreground">Format: PDF | Maks 2MB</p>
+              <Input id="kk" type="file" accept=".pdf" onChange={handleFileChange} className="bg-white border-2 rounded-xl cursor-pointer" required />
+              <div className="flex justify-between items-center text-[10px] text-muted-foreground">
+                <span>Format: PDF</span>
+                <span>Maks 2MB</span>
+              </div>
             </div>
           </div>
 
           <DialogFooter>
-            <Button type="submit" className="w-full h-12 text-lg font-bold rounded-xl" disabled={loading}>
-              {loading ? "Mengirim..." : "Kirim Pendaftaran"}
+            <Button 
+              type="submit" 
+              className={cn(
+                "w-full h-14 text-lg font-bold rounded-xl shadow-lg transition-all hero-gradient hover:scale-[1.02]",
+                loading && "opacity-80"
+              )} 
+              disabled={loading}
+            >
+              {loading ? (
+                <span className="flex items-center gap-2">
+                  <i className="fas fa-spinner animate-spin"></i> Mengirim...
+                </span>
+              ) : (
+                <span className="flex items-center gap-2">
+                  <i className="fas fa-paper-plane"></i> Kirim Pendaftaran
+                </span>
+              )}
             </Button>
           </DialogFooter>
         </form>

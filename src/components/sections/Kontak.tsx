@@ -1,7 +1,6 @@
 "use client"
 
 import React from 'react';
-import { MapPin, Mail, Phone, Clock, Map as MapIcon } from 'lucide-react';
 import { KontakData } from '@/lib/types';
 import { cn } from '@/lib/utils';
 
@@ -11,29 +10,26 @@ interface KontakProps {
 
 export function Kontak({ data }: KontakProps) {
   return (
-    <section id="kontak" className="py-20 px-[5%] bg-white">
+    <section id="kontak" className="section section-light py-20 px-[5%] bg-white">
       <div className="max-w-6xl mx-auto">
-        <div className="text-center mb-16">
-          <h2 className="text-3xl md:text-4xl font-headline font-bold text-primary inline-flex items-center gap-3">
-            <MapIcon className="w-8 h-8" /> Hubungi Kami
-          </h2>
-          <div className="w-20 h-1.5 bg-gradient-to-r from-primary to-[#f9e79f] mx-auto mt-4 rounded-full"></div>
-        </div>
+        <h2 className="section-title">
+          <i className="fas fa-address-card mr-3"></i> Hubungi Kami
+        </h2>
 
         <div className="grid lg:grid-cols-2 gap-12">
           <div className="space-y-6">
-            <h3 className="text-2xl font-bold flex items-center gap-2 text-primary">
-              <MapPin className="w-6 h-6" /> Informasi Kontak
+            <h3 className="text-2xl font-bold flex items-center gap-3 text-primary mb-8">
+              <i className="fas fa-map-marker-alt"></i> Informasi Kontak
             </h3>
             
-            <div className="space-y-4">
+            <div className="flex flex-col gap-5">
               <ContactItem 
-                icon={<MapPin />} 
+                icon="fas fa-map-pin" 
                 title="Alamat" 
                 content={data.alamat || '-'} 
               />
               <ContactItem 
-                icon={<Mail />} 
+                icon="fas fa-envelope" 
                 title="Email" 
                 content={
                   <>
@@ -43,7 +39,7 @@ export function Kontak({ data }: KontakProps) {
                 } 
               />
               <ContactItem 
-                icon={<Phone />} 
+                icon="fas fa-phone-alt" 
                 title="Telepon" 
                 content={
                   <>
@@ -53,7 +49,7 @@ export function Kontak({ data }: KontakProps) {
                 } 
               />
               <ContactItem 
-                icon={<Clock />} 
+                icon="fas fa-clock" 
                 title="Jam Operasional" 
                 content={data.jam_operasional || '-'} 
                 isMultiLine
@@ -61,11 +57,11 @@ export function Kontak({ data }: KontakProps) {
             </div>
           </div>
 
-          <div className="bg-background rounded-3xl p-6 shadow-inner">
-            <h3 className="text-2xl font-bold flex items-center gap-2 text-primary mb-6">
-              <MapIcon className="w-6 h-6" /> Lokasi Kami
+          <div className="bg-[#f0f7f0] rounded-3xl p-8 shadow-inner">
+            <h3 className="text-2xl font-bold flex items-center gap-3 text-primary mb-6">
+              <i className="fas fa-map"></i> Lokasi Kami
             </h3>
-            <div className="w-full aspect-square md:aspect-video rounded-2xl overflow-hidden border-4 border-white shadow-xl">
+            <div className="w-full aspect-video rounded-2xl overflow-hidden border-8 border-white shadow-2xl">
               <iframe 
                 src={data.maps_url} 
                 className="w-full h-full border-0" 
@@ -81,14 +77,14 @@ export function Kontak({ data }: KontakProps) {
   );
 }
 
-const ContactItem = ({ icon, title, content, isMultiLine }: { icon: React.ReactNode; title: string; content: React.ReactNode; isMultiLine?: boolean }) => (
-  <div className="flex gap-4 p-5 bg-background rounded-2xl border border-border hover:border-primary/30 transition-all hover:translate-x-2">
-    <div className="text-primary mt-1">
-      {React.cloneElement(icon as React.ReactElement, { className: "w-6 h-6" })}
+const ContactItem = ({ icon, title, content, isMultiLine }: { icon: string; title: string; content: React.ReactNode; isMultiLine?: boolean }) => (
+  <div className="info-item">
+    <div className="text-primary w-12 flex justify-center text-2xl">
+      <i className={icon}></i>
     </div>
     <div>
-      <h4 className="font-bold text-sm uppercase tracking-wider text-muted-foreground mb-1">{title}</h4>
-      <div className={cn("text-base font-medium", isMultiLine && "whitespace-pre-line")}>
+      <h4 className="font-bold text-sm uppercase tracking-wider text-muted-foreground/60 mb-0.5">{title}</h4>
+      <div className={cn("text-base font-semibold text-foreground", isMultiLine && "whitespace-pre-line")}>
         {content}
       </div>
     </div>
