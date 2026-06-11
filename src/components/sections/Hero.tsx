@@ -1,3 +1,4 @@
+
 "use client"
 
 import React from 'react';
@@ -16,7 +17,10 @@ interface HeroProps {
 
 export function Hero({ hero, carousel }: HeroProps) {
   return (
-    <section id="beranda" className="relative w-full aspect-[4/3] sm:aspect-video overflow-hidden bg-[#145a32]">
+    <section 
+      id="beranda" 
+      className="relative w-full h-[70vh] md:h-[85vh] lg:h-[calc(100vh-76px)] overflow-hidden bg-[#0d2e1c]"
+    >
       <Swiper
         spaceBetween={0}
         centeredSlides={true}
@@ -32,14 +36,16 @@ export function Hero({ hero, carousel }: HeroProps) {
         className="w-full h-full"
       >
         {carousel.items.map((item, index) => (
-          <SwiperSlide key={index} className="relative w-full h-full cursor-pointer">
-            <Image
-              src={item.image}
-              alt={item.caption}
-              fill
-              className="object-cover transition-transform duration-500 hover:scale-105"
-              priority={index === 0}
-            />
+          <SwiperSlide key={index} className="relative w-full h-full bg-[#0d2e1c]">
+            <div className="relative w-full h-full">
+              <Image
+                src={item.image}
+                alt={item.caption}
+                fill
+                className="object-contain transition-transform duration-500 hover:scale-[1.01]"
+                priority={index === 0}
+              />
+            </div>
             <div className="slide-caption">
               {item.caption}
             </div>
@@ -47,11 +53,11 @@ export function Hero({ hero, carousel }: HeroProps) {
         ))}
       </Swiper>
 
-      <div className="absolute inset-0 pointer-events-none z-[5] bg-gradient-to-t from-[#145a32]/70 to-transparent flex flex-col justify-center items-center text-center p-6">
-        <h1 className="text-white text-3xl md:text-6xl font-headline font-bold mb-4 drop-shadow-xl max-w-4xl tracking-tight">
+      <div className="absolute inset-0 pointer-events-none z-[5] bg-gradient-to-t from-[#0d2e1c]/60 via-transparent to-[#0d2e1c]/30 flex flex-col justify-center items-center text-center p-6">
+        <h1 className="text-white text-3xl md:text-5xl lg:text-6xl font-headline font-bold mb-4 drop-shadow-[0_2px_10px_rgba(0,0,0,0.5)] max-w-4xl tracking-tight">
           {hero.title || 'TPA AL IMAN'}
         </h1>
-        <p className="text-white/95 text-lg md:text-2xl max-w-2xl drop-shadow-lg font-medium">
+        <p className="text-white/95 text-lg md:text-xl lg:text-2xl max-w-2xl drop-shadow-[0_2px_8px_rgba(0,0,0,0.5)] font-medium">
           {hero.subtitle || 'Tempat Pendidikan Al-Qur\'an'}
         </p>
       </div>
