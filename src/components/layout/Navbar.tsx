@@ -1,7 +1,8 @@
 "use client"
 
 import React, { useState, useEffect } from 'react';
-import { Mosque, Menu, X, Mail } from 'lucide-react';
+import { Menu, X, Mail } from 'lucide-react';
+import { MosqueIcon } from '@/components/icons/MosqueIcon';
 import { cn } from '@/lib/utils';
 import { LogoData } from '@/lib/types';
 
@@ -39,7 +40,7 @@ export function Navbar({ logo, onOpenModal }: NavbarProps) {
         className="flex items-center gap-3 cursor-pointer group"
         onClick={() => scrollToSection('beranda')}
       >
-        <Mosque className="w-8 h-8 text-[#f9e79f] group-hover:scale-110 transition-transform" />
+        <MosqueIcon className="w-8 h-8 text-[#f9e79f] group-hover:scale-110 transition-transform" />
         <h1 className="text-white text-xl font-headline font-bold uppercase tracking-tight">
           {logo?.nama || 'TPA AL IMAN'}
         </h1>
