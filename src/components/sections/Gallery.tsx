@@ -1,4 +1,3 @@
-
 "use client"
 
 import React, { useState } from 'react';
@@ -40,6 +39,7 @@ export function Gallery({ data }: GalleryProps) {
                   src={item.image}
                   alt={item.caption}
                   fill
+                  sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                   className="object-cover group-hover:scale-110 transition-transform duration-700"
                 />
               </div>
@@ -62,7 +62,6 @@ export function Gallery({ data }: GalleryProps) {
           
           {selectedItem && (
             <div className="relative w-full h-[70vh] md:h-[85vh] flex items-center justify-center group">
-              {/* Close Button */}
               <button 
                 onClick={() => setSelectedItem(null)}
                 className="absolute top-4 right-4 z-[60] bg-black/50 hover:bg-black/80 text-white w-12 h-12 rounded-full flex items-center justify-center transition-all shadow-2xl border border-white/20"
@@ -76,6 +75,7 @@ export function Gallery({ data }: GalleryProps) {
                   src={selectedItem.image}
                   alt={selectedItem.caption}
                   fill
+                  sizes="95vw"
                   className="object-contain"
                   priority
                 />

@@ -16,7 +16,6 @@ import { cn } from '@/lib/utils';
 import { createPaymentToken } from '@/app/actions/payment';
 import Swal from 'sweetalert2';
 
-// Deklarasi window.snap untuk typescript
 declare global {
   interface Window {
     snap: any;
@@ -130,10 +129,9 @@ export function RegistrationModal({ isOpen, onClose, appsScriptUrl }: Registrati
           icon: 'warning',
           confirmButtonColor: '#1e8449',
         });
-        return; // Hentikan proses, modal tetap terbuka untuk perbaikan
+        return; // Berhenti di sini, modal tetap terbuka
       }
 
-      // 3. Proses Pembayaran Midtrans
       const orderId = `REG-${Date.now()}-${formData.nisn}`;
       const amount = 50000; 
 
@@ -156,7 +154,6 @@ export function RegistrationModal({ isOpen, onClose, appsScriptUrl }: Registrati
       }
 
       if (window.snap) {
-        // Tutup modal agar tidak menghalangi popup Midtrans
         onClose();
         
         window.snap.pay(paymentResult.token, {
@@ -198,7 +195,6 @@ export function RegistrationModal({ isOpen, onClose, appsScriptUrl }: Registrati
       }
 
     } catch (error: any) {
-      console.error("Submission Error:", error);
       setLoading(false);
       Swal.fire({
         title: 'Kesalahan Sistem',
