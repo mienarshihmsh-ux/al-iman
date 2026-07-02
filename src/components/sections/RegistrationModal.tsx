@@ -13,9 +13,9 @@ import {
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Button } from "@/components/ui/button";
-import { useToast } from "@/hooks/use-toast";
 import { cn } from '@/lib/utils';
 import { createPaymentToken } from '@/app/actions/payment';
+import Swal from 'sweetalert2';
 
 // Deklarasi window.snap untuk typescript
 declare global {
@@ -31,7 +31,6 @@ interface RegistrationModalProps {
 }
 
 export function RegistrationModal({ isOpen, onClose, appsScriptUrl }: RegistrationModalProps) {
-  const { toast } = useToast();
   const [loading, setLoading] = useState(false);
   const [formData, setFormData] = useState({
     nama: '',
@@ -83,21 +82,32 @@ export function RegistrationModal({ isOpen, onClose, appsScriptUrl }: Registrati
     e.preventDefault();
     
     if (!formData.nama || !formData.nisn || !formData.nik || !files.foto || !files.ijazah || !files.kk) {
-      toast({
-        title: "Form Tidak Lengkap",
-        description: "Semua kolom wajib diisi!",
-        variant: "destructive"
+      Swal.fire({
+        title: 'Form Tidak Lengkap',
+        text: 'Semua kolom wajib diisi!',
+        icon: 'warning',
+        confirmButtonColor: '#1e8449',
       });
       return;
     }
 
     if (!/^\d{10}$/.test(formData.nisn)) {
-      toast({ title: "NISN Tidak Valid", description: "NISN harus berupa 10 digit angka!", variant: "destructive" });
+      Swal.fire({
+        title: 'NISN Tidak Valid',
+        text: 'NISN harus berupa 10 digit angka!',
+        icon: 'error',
+        confirmButtonColor: '#1e8449',
+      });
       return;
     }
 
     if (!/^\d{16}$/.test(formData.nik)) {
-      toast({ title: "NIK Tidak Valid", description: "NIK harus berupa 16 digit angka!", variant: "destructive" });
+      Swal.fire({
+        title: 'NIK Tidak Valid',
+        text: 'NIK harus berupa 16 digit angka!',
+        icon: 'error',
+        confirmButtonColor: '#1e8449',
+      });
       return;
     }
 
@@ -109,7 +119,7 @@ export function RegistrationModal({ isOpen, onClose, appsScriptUrl }: Registrati
       const ijazahBase64 = await fileToBase64(files.ijazah);
       const kkBase64 = await fileToBase64(files.kk);
 
-      // 2. Kirim Data ke Apps Script
+      // 2. Kirim Data ke Apps Script menggunakan URLSearchParams
       const bodyParams = new URLSearchParams();
       bodyParams.append('nama', formData.nama);
       bodyParams.append('nisn', formData.nisn);
@@ -149,36 +159,42 @@ export function RegistrationModal({ isOpen, onClose, appsScriptUrl }: Registrati
 
       // 4. Buka Midtrans Snap UI
       if (window.snap) {
-        // PENTING: Tutup modal pendaftaran SEBELUM membuka Snap
-        // Ini agar overlay modal tidak menghalangi interaksi klik pada Snap popup
+        // PENTING: Tutup modal pendaftaran SEBELUM membuka Snap agar tidak menghalangi klik
         onClose();
 
         window.snap.pay(paymentResult.token, {
           onSuccess: (result: any) => {
-            toast({
-              title: "Pendaftaran Berhasil!",
-              description: `Terima kasih ${formData.nama}, pendaftaran dan pembayaran telah selesai.`,
+            Swal.fire({
+              title: 'Pendaftaran Berhasil!',
+              text: `Terima kasih ${formData.nama}, pendaftaran dan pembayaran telah selesai.`,
+              icon: 'success',
+              confirmButtonColor: '#1e8449',
             });
-            // Reset form (opsional karena modal sudah tertutup)
             setFormData({ nama: '', nisn: '', nik: '' });
             setFiles({ foto: null, ijazah: null, kk: null });
           },
           onPending: (result: any) => {
-            toast({
-              title: "Menunggu Pembayaran",
-              description: "Silakan selesaikan pembayaran Anda sesuai instruksi.",
+            Swal.fire({
+              title: 'Menunggu Pembayaran',
+              text: 'Silakan selesaikan pembayaran Anda sesuai instruksi.',
+              icon: 'info',
+              confirmButtonColor: '#1e8449',
             });
           },
           onError: (result: any) => {
-            toast({
-              title: "Pembayaran Gagal",
-              description: "Terjadi kesalahan pada sistem pembayaran.",
-              variant: "destructive"
+            Swal.fire({
+              title: 'Pembayaran Gagal',
+              text: 'Terjadi kesalahan pada sistem pembayaran.',
+              icon: 'error',
+              confirmButtonColor: '#1e8449',
             });
           },
           onClose: () => {
-            toast({
-              description: "Proses pendaftaran dilanjutkan setelah pembayaran selesai.",
+            Swal.fire({
+              title: 'Informasi',
+              text: 'Proses pendaftaran dilanjutkan setelah pembayaran selesai.',
+              icon: 'warning',
+              confirmButtonColor: '#1e8449',
             });
           }
         });
@@ -188,10 +204,11 @@ export function RegistrationModal({ isOpen, onClose, appsScriptUrl }: Registrati
 
     } catch (error: any) {
       console.error("Submission Error:", error);
-      toast({
-        title: "Pendaftaran Gagal",
-        description: error.message || "Terjadi kesalahan saat memproses data.",
-        variant: "destructive"
+      Swal.fire({
+        title: 'Pendaftaran Gagal',
+        text: error.message || 'Terjadi kesalahan saat memproses data.',
+        icon: 'error',
+        confirmButtonColor: '#1e8449',
       });
     } finally {
       setLoading(false);
