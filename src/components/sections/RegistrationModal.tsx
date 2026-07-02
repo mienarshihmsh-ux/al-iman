@@ -102,11 +102,10 @@ export function RegistrationModal({ isOpen, onClose, appsScriptUrl }: Registrati
       const ijazahBase64 = await fileToBase64(files.ijazah);
       const kkBase64 = await fileToBase64(files.kk);
 
-      // Gunakan URLSearchParams untuk kompatibilitas e.parameter di Apps Script
+      // Gunakan URLSearchParams agar terbaca oleh e.parameter di Apps Script
       const bodyParams = new URLSearchParams();
       bodyParams.append('nama', formData.nama);
       bodyParams.append('email', formData.email);
-      // PENTING: Menggunakan 'noTelp' agar sesuai dengan variabel di Google Apps Script
       bodyParams.append('noTelp', formData.telepon); 
       bodyParams.append('nisn', formData.nisn);
       bodyParams.append('nik', formData.nik);
@@ -125,11 +124,19 @@ export function RegistrationModal({ isOpen, onClose, appsScriptUrl }: Registrati
 
       const result = await response.json();
 
+      // Tangani pesan error/validasi dari Apps Script secara anggun
       if (result.result !== 'success') {
-        throw new Error(result.message || 'Gagal menyimpan data ke server');
+        setLoading(false);
+        Swal.fire({
+          title: 'Validasi Gagal',
+          text: result.message || 'Terjadi kesalahan pada server.',
+          icon: 'warning',
+          confirmButtonColor: '#1e8449',
+        });
+        return; // Hentikan proses, jangan lanjut ke Midtrans
       }
 
-      // 3. Proses Pembayaran Midtrans
+      // 3. Proses Pembayaran Midtrans jika pendaftaran ke Sheet sukses
       const orderId = `REG-${Date.now()}-${formData.nisn}`;
       const amount = 50000; 
 
@@ -141,11 +148,18 @@ export function RegistrationModal({ isOpen, onClose, appsScriptUrl }: Registrati
       });
 
       if (!paymentResult || !paymentResult.token) {
-        throw new Error("Gagal mendapatkan token pembayaran. Hubungi admin.");
+        setLoading(false);
+        Swal.fire({
+          title: 'Sistem Pembayaran Sibuk',
+          text: 'Data tersimpan, tapi gagal memuat pembayaran. Hubungi admin.',
+          icon: 'error',
+          confirmButtonColor: '#1e8449',
+        });
+        return;
       }
 
       if (window.snap) {
-        // Tutup modal pendaftaran agar overlay tidak menghalangi popup Midtrans
+        // Tutup modal agar overlay tidak menghalangi popup Midtrans
         onClose();
         
         window.snap.pay(paymentResult.token, {
@@ -177,19 +191,24 @@ export function RegistrationModal({ isOpen, onClose, appsScriptUrl }: Registrati
           }
         });
       } else {
-        throw new Error("Sistem pembayaran Midtrans gagal dimuat. Muat ulang halaman.");
+        setLoading(false);
+        Swal.fire({
+          title: 'Sistem Belum Siap',
+          text: 'Script pembayaran belum termuat sempurna. Silakan coba lagi.',
+          icon: 'error',
+          confirmButtonColor: '#1e8449',
+        });
       }
 
     } catch (error: any) {
       console.error("Submission Error:", error);
+      setLoading(false);
       Swal.fire({
-        title: 'Pendaftaran Gagal',
-        text: error.message || 'Terjadi kesalahan saat memproses data.',
+        title: 'Kesalahan Sistem',
+        text: 'Gagal terhubung ke server pendaftaran. Pastikan internet Anda stabil.',
         icon: 'error',
         confirmButtonColor: '#1e8449',
       });
-    } finally {
-      setLoading(false);
     }
   };
 
