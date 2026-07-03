@@ -245,6 +245,7 @@ export function RegistrationModal({ isOpen, onClose, appsScriptUrl }: Registrati
                 className="h-12 border-2 focus:border-primary rounded-xl"
                 value={formData.nama}
                 onChange={handleInputChange}
+                autoComplete="off"
                 required 
               />
             </div>
@@ -262,6 +263,7 @@ export function RegistrationModal({ isOpen, onClose, appsScriptUrl }: Registrati
                 className="h-12 border-2 focus:border-primary rounded-xl"
                 value={formData.email}
                 onChange={handleInputChange}
+                autoComplete="off"
                 required 
               />
             </div>
@@ -275,6 +277,7 @@ export function RegistrationModal({ isOpen, onClose, appsScriptUrl }: Registrati
                 className="h-12 border-2 focus:border-primary rounded-xl"
                 value={formData.telepon}
                 onChange={handleInputChange}
+                autoComplete="off"
                 required 
               />
             </div>
@@ -291,6 +294,7 @@ export function RegistrationModal({ isOpen, onClose, appsScriptUrl }: Registrati
                 className="h-12 border-2 focus:border-primary rounded-xl"
                 value={formData.nisn}
                 onChange={handleInputChange}
+                autoComplete="off"
                 required 
               />
             </div>
@@ -304,6 +308,7 @@ export function RegistrationModal({ isOpen, onClose, appsScriptUrl }: Registrati
                 className="h-12 border-2 focus:border-primary rounded-xl"
                 value={formData.nik}
                 onChange={handleInputChange}
+                autoComplete="off"
                 required 
               />
             </div>
