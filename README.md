@@ -19,11 +19,13 @@ Aplikasi web modern untuk manajemen pendaftaran santri baru di TPA AL IMAN. Diba
 *Gambar: Struktur folder utama aplikasi TPA AL IMAN*
 
 Berikut adalah penjelasan singkat mengenai struktur folder:
+- **`.idx`**: Konfigurasi lingkungan pengembangan Cloud.
+- **`.next`**: Build output dari Next.js (dihasilkan otomatis).
 - **`src/app`**: Berisi logika utama aplikasi menggunakan Next.js App Router.
 - **`src/components`**: Komponen UI yang dapat digunakan kembali (Navbar, Hero, Footer, dll).
 - **`src/lib`**: Utilitas, tipe data, dan konfigurasi aplikasi.
-- **`public`**: Aset statis seperti gambar dan ikon.
 - **`.env`**: File konfigurasi variabel lingkungan untuk kunci API rahasia.
+- **`apphosting.yaml`**: Konfigurasi untuk Firebase App Hosting.
 
 ## 🛠️ Teknologi yang Digunakan
 

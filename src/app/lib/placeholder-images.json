@@ -1,0 +1,11 @@
+
+{
+  "placeholderImages": [
+    {
+      "id": "project-structure",
+      "description": "Struktur folder utama aplikasi TPA AL IMAN",
+      "imageUrl": "https://picsum.photos/seed/project-structure/400/600",
+      "imageHint": "project structure"
+    }
+  ]
+}
