@@ -1,4 +1,3 @@
-
 # TPA AL IMAN - Sistem Pendaftaran Santri Baru Digital
 
 Aplikasi web modern untuk manajemen pendaftaran santri baru di TPA AL IMAN. Dibangun dengan fokus pada kemudahan pengguna, keamanan data, dan integrasi pembayaran digital.
@@ -12,6 +11,19 @@ Aplikasi web modern untuk manajemen pendaftaran santri baru di TPA AL IMAN. Diba
 - **Penyimpanan Cloud (Google Sheets & Drive):** Data pendaftaran disimpan langsung ke Google Sheets dan berkas diunggah ke Google Drive melalui Google Apps Script.
 - **Validasi Real-time:** Pengecekan data ganda (NISN, NIK, Email, No. Telp) untuk mencegah pendaftaran duplikat.
 - **Notifikasi Elegan:** Menggunakan SweetAlert2 untuk umpan balik pengguna yang lebih baik.
+- **Bukti PDF:** Fitur unduh bukti pendaftaran otomatis setelah pembayaran sukses.
+
+## 📁 Struktur Proyek
+
+![Struktur Proyek TPA AL IMAN](https://picsum.photos/seed/project-structure/400/600)
+*Gambar: Struktur folder utama aplikasi TPA AL IMAN*
+
+Berikut adalah penjelasan singkat mengenai struktur folder:
+- **`src/app`**: Berisi logika utama aplikasi menggunakan Next.js App Router.
+- **`src/components`**: Komponen UI yang dapat digunakan kembali (Navbar, Hero, Footer, dll).
+- **`src/lib`**: Utilitas, tipe data, dan konfigurasi aplikasi.
+- **`public`**: Aset statis seperti gambar dan ikon.
+- **`.env`**: File konfigurasi variabel lingkungan untuk kunci API rahasia.
 
 ## 🛠️ Teknologi yang Digunakan
 
@@ -21,6 +33,7 @@ Aplikasi web modern untuk manajemen pendaftaran santri baru di TPA AL IMAN. Diba
 - **Backend/Logic:** Next.js Server Actions.
 - **Payment Gateway:** Midtrans Snap SDK.
 - **Database/Storage:** Google Apps Script (sebagai API Bridge ke Google Sheets & Drive).
+- **PDF Generation:** jsPDF.
 
 ## ⚙️ Konfigurasi Environment Variables
 
