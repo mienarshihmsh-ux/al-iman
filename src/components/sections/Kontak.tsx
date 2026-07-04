@@ -16,7 +16,7 @@ export function Kontak({ data }: KontakProps) {
           <i className="fas fa-address-card mr-3"></i> Hubungi Kami
         </h2>
 
-        <div className="grid lg:grid-cols-2 gap-12">
+        <div className="max-w-2xl mx-auto">
           <div className="space-y-6">
             <h3 className="text-2xl font-bold flex items-center gap-3 text-primary mb-8">
               <i className="fas fa-map-marker-alt"></i> Informasi Kontak
@@ -54,21 +54,6 @@ export function Kontak({ data }: KontakProps) {
                 content={data.jam_operasional || '-'} 
                 isMultiLine
               />
-            </div>
-          </div>
-
-          <div className="bg-[#f0f7f0] rounded-3xl p-8 shadow-inner">
-            <h3 className="text-2xl font-bold flex items-center gap-3 text-primary mb-6">
-              <i className="fas fa-map"></i> Lokasi Kami
-            </h3>
-            <div className="w-full aspect-video rounded-2xl overflow-hidden border-8 border-white shadow-2xl">
-              <iframe 
-                src={data.maps_url} 
-                className="w-full h-full border-0" 
-                allowFullScreen 
-                loading="lazy" 
-                referrerPolicy="no-referrer-when-downgrade"
-              ></iframe>
             </div>
           </div>
         </div>
