@@ -19,10 +19,6 @@ export function Kontak({ data }: KontakProps) {
         <div className="grid lg:grid-cols-2 gap-12 items-start">
           {/* Bagian Informasi Kontak */}
           <div className="space-y-6">
-            <h3 className="text-2xl font-bold flex items-center gap-3 text-primary mb-8">
-              <i className="fas fa-info-circle"></i> Informasi Kontak
-            </h3>
-            
             <div className="flex flex-col gap-5">
               <ContactItem 
                 icon="fas fa-map-pin" 
@@ -58,7 +54,7 @@ export function Kontak({ data }: KontakProps) {
             </div>
           </div>
 
-          {/* Bagian Peta (Peta tetap ada, namun judul 'Lokasi Kami' telah dihilangkan) */}
+          {/* Bagian Peta */}
           <div className="w-full">
             <div className="rounded-2xl overflow-hidden shadow-xl border-4 border-white h-[450px] relative">
               <iframe 
