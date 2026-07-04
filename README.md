@@ -1,3 +1,4 @@
+
 # TPA AL IMAN - Sistem Pendaftaran Santri Baru Digital
 
 Aplikasi web modern untuk manajemen pendaftaran santri baru di TPA AL IMAN. Dibangun dengan fokus pada kemudahan pengguna, keamanan data, dan integrasi pembayaran digital.
@@ -27,18 +28,18 @@ Untuk menjalankan aplikasi ini, Anda perlu membuat file `.env` di folder root da
 
 ```env
 # Midtrans Keys
-MIDTRANS_SERVER_KEY=isi_dengan_server_key_anda
-NEXT_PUBLIC_MIDTRANS_CLIENT_KEY=isi_dengan_client_key_anda
+MIDTRANS_SERVER_KEY=SB-Mid-server-yllL5VMGkjeO9dIEHKFY9wdA
+NEXT_PUBLIC_MIDTRANS_CLIENT_KEY=SB-Mid-client-FBGELqULvvZ8eF0E
 
 # Apps Script URL
-NEXT_PUBLIC_APPS_SCRIPT_URL=isi_dengan_url_deployment_apps_script
+NEXT_PUBLIC_APPS_SCRIPT_URL=https://script.google.com/macros/s/AKfycbwEXoPbCRx-OC1R982OHH7-amDKkuyMsqgT60J8Jwcv-oHuVxEPUOGucyEOu7hBq6zQ/exec
 ```
 
 ## 📝 Catatan Penting
 
 1. **Google Apps Script:** Pastikan Anda telah men-deploy Google Apps Script dengan izin akses "Anyone" agar aplikasi dapat mengirim data pendaftaran.
 2. **Midtrans:** Aplikasi ini saat ini dikonfigurasi menggunakan mode Sandbox untuk keperluan pengembangan/testing.
-3. **Keamanan:** Selalu gunakan Environment Variables untuk menyimpan kunci rahasia agar tidak bocor saat diunggah ke repositori publik seperti GitHub.
+3. **Keamanan:** Selalu gunakan Environment Variables (.env) untuk menyimpan kunci rahasia agar tidak bocor saat diunggah ke repositori publik seperti GitHub.
 
 ## 📦 Instalasi dan Pengembangan
 
