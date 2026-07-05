@@ -13,35 +13,60 @@ Aplikasi web modern untuk manajemen pendaftaran santri baru di TPA AL IMAN. Diba
 - **Notifikasi Terintegrasi:** Menggunakan SweetAlert2 untuk umpan balik pengguna yang profesional dan tidak menghalangi alur kerja.
 - **Bukti PDF:** Fitur unduh bukti pendaftaran otomatis dalam format PDF setelah pembayaran berhasil.
 
+## 📥 Cara Instalasi (Clone dari GitHub)
+
+Ikuti langkah-langkah berikut untuk menjalankan proyek ini di komputer lokal Anda:
+
+1. **Clone Repositori:**
+   Buka terminal atau command prompt, lalu jalankan perintah berikut:
+   ```bash
+   git clone https://github.com/mienarshihmsh-ux/tpqaliman.git
+   ```
+
+2. **Masuk ke Direktori Proyek:**
+   ```bash
+   cd tpqaliman
+   ```
+
+3. **Instal Dependensi:**
+   Pastikan Anda sudah menginstal Node.js, lalu jalankan:
+   ```bash
+   npm install
+   ```
+
+4. **Konfigurasi Environment Variables:**
+   Buat file bernama `.env` di folder root dan isi dengan kunci API Anda (lihat bagian Konfigurasi di bawah).
+
+5. **Jalankan Server Pengembangan:**
+   ```bash
+   npm run dev
+   ```
+   Aplikasi akan berjalan di `http://localhost:9002` (atau port yang tertera di terminal).
+
 ## 📁 Struktur Proyek (Garis Besar)
 
-Berikut adalah struktur folder dan file utama dalam proyek ini:
+Berikut adalah struktur folder utama dalam proyek ini:
 
 ```text
 AL-IMAN/
 ├── .idx/                   # Konfigurasi lingkungan pengembangan Cloud (Google IDX)
 ├── src/                    # Folder utama kode sumber
-│   ├── ai/                 # Logika kecerdasan buatu (Genkit)
+│   ├── ai/                 # Logika kecerdasan buatan (Genkit)
 │   ├── app/                # Logika utama aplikasi (Next.js App Router)
 │   │   ├── actions/        # Server Actions (misal: pemrosesan pembayaran)
-│   │   ├── lib/            # Konfigurasi internal aplikasi & placeholder data
+│   │   ├── lib/            # Konfigurasi internal & placeholder data
 │   │   ├── globals.css     # Styling global (Tailwind & Tema Shadcn)
-│   │   ├── layout.tsx      # Tata letak induk aplikasi
+│   │   ├── layout.tsx      # Tata letak induk
 │   │   └── page.tsx        # Halaman beranda utama
-│   ├── components/         # Komponen UI yang dapat digunakan kembali
-│   │   ├── icons/          # Komponen ikon custom
-│   │   ├── layout/         # Komponen layout (Navbar, Footer, Loading)
-│   │   ├── sections/       # Bagian-bagian halaman (Hero, Gallery, Kontak, Modal)
-│   │   └── ui/             # Komponen dasar Shadcn UI (Button, Input, Dialog, dll)
+│   ├── components/         # Komponen UI reusable
+│   │   ├── layout/         # Navbar, Footer, Loading
+│   │   ├── sections/       # Hero, Tentang, Gallery, Kontak, Modal
+│   │   └── ui/             # Komponen dasar Shadcn UI
 │   ├── hooks/              # Custom React hooks
-│   └── lib/                # Utilitas (utils.ts) dan definisi tipe (types.ts)
-├── .env                    # Variabel lingkungan untuk kunci API rahasia
-├── apphosting.yaml         # Konfigurasi untuk Firebase App Hosting
-├── components.json         # Konfigurasi library Shadcn UI
-├── next.config.ts          # Konfigurasi framework Next.js
-├── package.json            # Daftar dependensi dan skrip proyek
-├── tailwind.config.ts      # Konfigurasi styling Tailwind CSS
-└── tsconfig.json           # Konfigurasi TypeScript
+│   └── lib/                # Utilitas (utils.ts) dan tipe data (types.ts)
+├── .env                    # Variabel lingkungan (Rahasia)
+├── package.json            # Daftar dependensi & skrip
+└── tailwind.config.ts      # Konfigurasi styling Tailwind
 ```
 
 ## 🛠️ Teknologi yang Digunakan
@@ -51,19 +76,19 @@ AL-IMAN/
 - **UI Components:** Shadcn UI, Radix UI.
 - **AI Integration:** Genkit.
 - **Payment Gateway:** Midtrans Snap SDK.
-- **Backend/Logic:** Next.js Server Actions & Google Apps Script (sebagai API Bridge).
-- **Utilitas:** jsPDF (Generasi PDF), SweetAlert2 (Notifikasi).
+- **Backend Bridge:** Google Apps Script.
+- **Utility:** jsPDF (Generasi PDF), SweetAlert2 (Notifikasi).
 
 ## ⚙️ Konfigurasi Environment Variables
 
-Aplikasi ini menggunakan variabel lingkungan untuk menjaga keamanan kunci API. Pastikan Anda memiliki file `.env` di folder root dengan isi sebagai berikut:
+Pastikan Anda memiliki file `.env` dengan isi sebagai berikut:
 
 ```env
-# Midtrans Keys (Ganti dengan kunci Anda)
+# Midtrans Keys
 MIDTRANS_SERVER_KEY=SB-Mid-server-xxxxxxxxxxxxxxxxxx
 NEXT_PUBLIC_MIDTRANS_CLIENT_KEY=SB-Mid-client-xxxxxxxxxxxxxxxxxx
 
-# Apps Script URL (URL Web App yang di-deploy di Google Apps Script)
+# Apps Script URL
 NEXT_PUBLIC_APPS_SCRIPT_URL=https://script.google.com/macros/s/xxxx/exec
 ```
 
