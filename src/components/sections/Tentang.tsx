@@ -34,20 +34,21 @@ export function Tentang({ data, imageUrl }: TentangProps) {
 
           {/* Kolom Media & Statistik (Kanan) */}
           <div className="lg:col-span-5 flex flex-col gap-6">
-            {/* Gambar Utama (Desktop Only) */}
+            {/* Gambar Utama */}
             {imageUrl && (
-              <div className="hidden lg:block relative aspect-video rounded-2xl overflow-hidden shadow-xl border-4 border-white transition-transform duration-500 hover:scale-[1.02]">
+              <div className="relative aspect-[4/3] rounded-2xl overflow-hidden shadow-2xl border-4 border-white transition-transform duration-500 hover:scale-[1.01]">
                 <Image 
                   src={imageUrl} 
                   alt="Tentang TPA AL IMAN" 
                   fill 
                   className="object-cover"
                   data-ai-hint="islamic activity"
+                  priority
                 />
               </div>
             )}
 
-            {/* Statistik Cards disusun Horizontal di Desktop */}
+            {/* Statistik Cards disusun Horizontal */}
             <div className="flex flex-row gap-3 w-full">
               <StatCard 
                 icon="fas fa-users" 
@@ -73,12 +74,12 @@ export function Tentang({ data, imageUrl }: TentangProps) {
 }
 
 const StatCard = ({ icon, label, value }: { icon: string; label: string; value: string | number }) => (
-  <div className="bg-primary p-4 md:p-6 rounded-xl text-center text-white transition-all duration-300 shadow-lg hover:-translate-y-1.5 flex flex-col items-center justify-center flex-1">
+  <div className="bg-primary p-4 md:p-5 rounded-xl text-center text-white transition-all duration-300 shadow-lg hover:-translate-y-1.5 flex flex-col items-center justify-center flex-1 min-h-[120px]">
     <div className="mb-2 text-[#f9e79f]">
       <i className={`${icon} text-2xl md:text-3xl`}></i>
     </div>
-    <div className="text-xl md:text-2xl font-bold mb-0.5">{value}++</div>
-    <div className="text-[8px] md:text-[9px] font-bold uppercase tracking-widest opacity-90 leading-tight">
+    <div className="text-xl md:text-2xl font-bold mb-0.5">{value}+</div>
+    <div className="text-[9px] md:text-[10px] font-bold uppercase tracking-widest opacity-90 leading-tight">
       {label}
     </div>
   </div>
