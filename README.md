@@ -21,7 +21,7 @@ Berikut adalah struktur folder dan file utama dalam proyek ini:
 AL-IMAN/
 ├── .idx/                   # Konfigurasi lingkungan pengembangan Cloud (Google IDX)
 ├── src/                    # Folder utama kode sumber
-│   ├── ai/                 # Logika kecerdasan buatan (Genkit)
+│   ├── ai/                 # Logika kecerdasan buatu (Genkit)
 │   ├── app/                # Logika utama aplikasi (Next.js App Router)
 │   │   ├── actions/        # Server Actions (misal: pemrosesan pembayaran)
 │   │   ├── lib/            # Konfigurasi internal aplikasi & placeholder data
